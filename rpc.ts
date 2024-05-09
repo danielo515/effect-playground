@@ -1,21 +1,7 @@
 import { ResolverNoStream } from "@effect/rpc";
 import { Router, Rpc } from "@effect/rpc";
-import * as S from "@effect/schema/Schema";
 import * as Effect from "effect/Effect";
-
-class Post extends S.Class<Post>("Post")({
-  id: S.Number,
-  body: S.String,
-}) {}
-
-export class CreatePost extends S.TaggedRequest<CreatePost>()(
-  "CreatePost",
-  S.Never,
-  Post,
-  {
-    body: S.String,
-  },
-) {}
+import { CreatePost, Post } from "./rpc-schema";
 
 export const router = Router.make(
   Rpc.effect(CreatePost, (req) => {

@@ -1,7 +1,7 @@
 import { HttpResolver } from "@effect/rpc-http";
 import type { Router } from "./rpc.ts";
-import { CreatePost } from "./rpc.ts";
 import { Effect } from "effect";
+import { CreatePost } from "./rpc-schema.ts";
 
 const client = HttpResolver.makeClient<Router>("http://localhost:3000/rpc");
 
