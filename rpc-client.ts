@@ -1,13 +1,19 @@
 import { HttpResolver } from "@effect/rpc-http";
 import type { Router } from "./rpc.ts";
 import { Effect } from "effect";
-import { CreatePost } from "./rpc-schema.ts";
+import { CreatePost, GetPost } from "./rpc-schema.ts";
 
 const client = HttpResolver.makeClient<Router>("http://localhost:3000/rpc");
 
 // make calls
 client(new CreatePost({ body: "Hello" }))
-  .pipe(Effect.runPromise)
+  .pipe(
+    Effect.andThen((x) => {
+      console.log("Got this back", x);
+      return client(new GetPost({ id: x.id }));
+    }),
+    Effect.runPromise,
+  )
   .then((x) => console.log("Got this back", x));
 // import * as Resolver from "@effect/rpc/Resolver";
 // import { CreatePost, resolver } from "./rpc";

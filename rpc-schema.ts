@@ -13,3 +13,12 @@ export class CreatePost extends S.TaggedRequest<CreatePost>()(
     body: S.String,
   },
 ) {}
+
+export class GetPost extends S.TaggedRequest<GetPost>()(
+  "GetPost",
+  S.Never,
+  Post,
+  {
+    id: S.Number,
+  },
+) {}
